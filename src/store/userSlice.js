@@ -1,39 +1,40 @@
-import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  idx: null,
+  name: "",
+  email: "",
+  token: "",
+  login_time: "",
+  created_time: "",
+  updated_time: "",
+  grade: null,
+  agree_marketing: null,
+  loggedIn: false,
+  status: "idle",
+  error: null,
+};
 
 const userSlice = createSlice({
-  name: 'user',
-  initialState: {
-    name: '',
-    email: '',
-    loggedIn: false,
-  },
+  name: "user",
+  initialState,
   reducers: {
-    setUser: (state, action) => {
+    updateUser(state, action) {
+      state.idx = action.payload.idx;
       state.name = action.payload.name;
       state.email = action.payload.email;
-      state.loggedIn = true;
-    },
-    clearUser: (state) => {
-      state.name = '';
-      state.email = '';
-      state.loggedIn = false;
+      state.token = action.payload.token;
+      state.login_time = action.payload.login_time;
+      state.created_time = action.payload.created_time;
+      state.updated_time = action.payload.updated_time;
+      state.grade = action.payload.grade;
+      state.agree_marketing = action.payload.agree_marketing;
+      state.loggedIn = action.payload.loggedIn;
     },
   },
+  extraReducers: (builder) => {},
 });
 
-// 비동기 로그인 액션 생성
-export const loginUser = createAsyncThunk(
-  'user/loginUser',
-  async ({ id, password }, thunkAPI) => {
-    try {
-      const response = await axios.post('/api/login', { id, password });
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
+export const { updateUser } = userSlice.actions;
 
-export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

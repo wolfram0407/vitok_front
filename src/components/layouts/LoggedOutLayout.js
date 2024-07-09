@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { color } from "../../styles/theme";
 
 const Container = styled.div`
@@ -9,24 +9,23 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${color.bg};
-  ${(p) => p.styles}
 `;
 
 const Box = styled.div`
   display: flex;
   min-width: 55rem;
   flex-direction: column;
-  align-items: ${(p) => (p.center ? "center" : "flex-start")};
+  align-items: center;
   justify-content: center;
   padding: 6rem;
   background-color: ${color.white};
   border-radius: 1rem;
 `;
 
-const LoggedOutLayout = ({ children, center, styles }) => {
+const LoggedOutLayout = ({ children, styles }) => {
   return (
     <Container styles={styles}>
-      <Box center={center}>{children}</Box>
+      <Box>{children}</Box>
     </Container>
   );
 };

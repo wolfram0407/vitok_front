@@ -1,20 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AppLayout from '../components/layouts/Layout';
-import Home from '../pages/common/Home';
-import About from '../pages/common/About';
-import Contact from '../pages/common/Contact';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import LoggedOutLayout from "../components/layouts/LoggedOutLayout";
+
+import Home from "../pages/Home";
 
 const LoggedInRouter = () => (
-  <Router>
-    <AppLayout>
+  <>
+    <LoggedOutLayout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
       </Routes>
-    </AppLayout>
-  </Router>
+    </LoggedOutLayout>
+  </>
 );
 
 export default LoggedInRouter;
