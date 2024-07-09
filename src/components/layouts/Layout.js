@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import AppHeader from './common/Header';
-import AppFooter from './common/Footer';
+import AppHeader from '../common/Header';
+import AppFooter from '../common/Footer';
 
 const { Content } = Layout;
 
