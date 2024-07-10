@@ -38,14 +38,9 @@ const Login = () => {
   const onFinish = async ({ email, password }) => {
     try {
       const response = await axios.post("http://localhost:4000/api/user/login", { email, password });
-
       const { token, data } = response.data;
-
       setCookie("victok_token", token, { path: "/", maxAge: 3600 });
       dispatch(updateUser({ ...data.userInfo, token, loggedIn: true }));
-
-      console.log(getCookie("victok_token"));
-
       navigate("/");
     } catch (error) {
       Modal.error({

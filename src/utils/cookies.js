@@ -6,6 +6,6 @@ export const setCookie = (name, value, options = {}) => {
   return cookies.set(name, value, { ...options });
 };
 
-export const getCookie = (name) => {
-  return cookies.get(name);
+export const getCookie = () => {
+  return cookies.get("victok_token");
 };
