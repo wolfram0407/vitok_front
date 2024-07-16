@@ -6,6 +6,7 @@ import LoggedOutHeader from "../components/common/LoggedOutHeader";
 
 import Welecome from "../pages/Welecome";
 import Login from "../pages/user/Login";
+import Register from "../pages/user/Register";
 
 const RootView = styled.div`
   width: 100vw;
@@ -20,7 +21,7 @@ const LoggedOutRouter = () => {
         <Routes>
           <Route path="/" element={<Welecome />} />
           <Route path="/login" element={<Login />} />
-
+          <Route path="/register" element={<Register  />} />
         </Routes>
       </RootView>
       <Footer />

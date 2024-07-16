@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Checkbox, Form, Input, Modal } from "antd";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import LoggedOutLayout from "../../components/layouts/LoggedOutLayout";
-import { getCookie, setCookie } from "../../utils/cookies";
+import { setCookie } from "../../utils/cookies";
 
 import { color } from "../../styles/theme";
 import axios from "axios";
@@ -33,7 +33,7 @@ const Login = () => {
   const [checked, setChecked] = useState(false);
 
   const onClickFindPassword = () => navigate("/");
-  const onClickRegister = () => navigate("/");
+  const onClickRegister = () => navigate("/register");
 
   const onFinish = async ({ email, password }) => {
     try {

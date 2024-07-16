@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import styled from "styled-components";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { ConfigProvider } from "antd";
 import moment from "moment";
 
