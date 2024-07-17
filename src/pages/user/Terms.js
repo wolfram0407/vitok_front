@@ -29,7 +29,6 @@ const A = styled.a`
 `;
 
 const Terms = ({ form, setStep, currentStep }) => {
-  // const { termList } = useAppContext();
   const [all, setAll] = useState(false);
 
   const termsList = [

@@ -11,10 +11,11 @@ import axios from "axios";
 import { updateUser } from "../../store/userSlice";
 
 // import UserInfo from "./UserInfo";
-// import Account from "./Account";
+
 // import Complete from "./Complete";
 // import StoreInfo from "./StoreInfo";
 import Terms from "./Terms";
+import Account from "./Account.js";
 
 const Image = styled.img`
   width: 24rem;
@@ -61,7 +62,11 @@ const Register = () => {
         form={termsForm}
         setStep={setStep}
       />
-
+    <Account
+        currentStep={step === "account"}
+        form={accountForm}
+        setStep={setStep}
+      />
     </LoggedOutLayout>
   );
 };
