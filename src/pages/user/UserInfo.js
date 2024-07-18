@@ -2,9 +2,10 @@ import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { useMutation } from "react-query";
-import { phoneNumReg } from "../../utils/Reg"
+import { phoneNumReg } from "../../utils/Reg";
 import { color } from "../../styles/theme";
 import RowWrapper from "../../components/atom/RowWrapper";
+import axios from "axios";
 // 회원가입 - 개인 정보
 // 인증 관련 기능 추가 필요
 const Container = styled.div`
@@ -33,73 +34,70 @@ const Section = styled.div`
 const UserInfo = ({ currentStep, form, step, setStep, emailConfirm }) => {
   const [send, setSend] = useState(true);
   const [auth, setAuth] = useState(true);
-  
-  // const authSendMutation = useMutation(
-  //   (data) => API.post("/user/auth-send", data),
-  //   {
-  //     onSuccess: () => {
-  //       Modal.success({
-  //         title: "인증번호 발송",
-  //         content: "입력하신 휴대폰 번호로 인증번호가 발송되었습니다.",
-  //         okText: "확인",
-  //       });
-  //       setSend(false);
-  //     },
-  //     onError: (error) => {
-  //       console.log(error);
-  //       Modal.error({
-  //         title: "핸드폰 인증 실패!",
-  //         content: "이미 가입된 번호입니다.",
-  //         okText: "확인",
-  //       });
-  //     },
-  //   }
-  // );
 
-  // const onSend = async () => {
-  //   const phone_number = form.getFieldValue(["auth", "phoneNum"]);
-  //   if (phone_number.length !== 11) {
-  //     Modal.error({
-  //       title: "핸드폰 인증 실패!",
-  //       content: "핸드폰 번호를 올바르게 입력해 주세요.",
-  //     });
-  //     return;
-  //   }
+  const authSendMutation = useMutation((data) => axios.post("http://localhost:4000/api/user/auth-send", data), {
+    onSuccess: () => {
+      Modal.success({
+        title: "인증번호 발송",
+        content: `입력하신 휴대폰 번호로 인증번호가 발송되었습니다.`,
+        okText: "확인",
+      });
+      setSend(false);
+    },
+    onError: (error) => {
+      console.log(error);
+      Modal.error({
+        title: "핸드폰 인증 실패!",
+        content: "이미 가입된 번호입니다.",
+        okText: "확인",
+      });
+    },
+  });
 
-  //   const check = phoneNumReg.test(phone_number);
-  //   if (check) {
-  //     authSendMutation.mutate({ phone_number });
-  //   } else {
-  //     Modal.error({
-  //       title: "핸드폰 인증 실패!",
-  //       content: "핸드폰 번호를 올바르게 입력해 주세요.",
-  //     });
-  //   }
-  // };
+  const onSend = async () => {
+    const phoneNumber = form.getFieldValue(["auth", "phoneNum"]);
+    if (phoneNumber.length !== 11) {
+      Modal.error({
+        title: "핸드폰 인증 실패!",
+        content: "핸드폰 번호를 올바르게 입력해 주세요.",
+      });
+      return;
+    }
 
-  // const onAuthMutation = useMutation((data) => API.post("/user/auth", data), {
-  //   onSuccess: () => {
-  //     Modal.success({
-  //       title: "인증번호 확인 완료",
-  //       content: "휴대폰 인증이 완료되었습니다.",
-  //       okText: "확인",
-  //     });
-  //     setAuth(false);
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //     Modal.error({
-  //       title: "인증번호 확인 실패",
-  //       content: "인증번호가 올바르지 않습니다.",
-  //       okText: "확인",
-  //     });
-  //   },
-  // });
+    const check = phoneNumReg.test(phoneNumber);
+    if (check) {
+      authSendMutation.mutate({ phoneNumber });
+    } else {
+      Modal.error({
+        title: "핸드폰 인증 실패!",
+        content: "핸드폰 번호를 올바르게 입력해 주세요.",
+      });
+    }
+  };
+
+  const onAuthMutation = useMutation((data) => axios.post("http://localhost:4000/api/user/auth", data), {
+    onSuccess: () => {
+      Modal.success({
+        title: "인증번호 확인 완료",
+        content: "휴대폰 인증이 완료되었습니다.",
+        okText: "확인",
+      });
+      setAuth(false);
+    },
+    onError: (error) => {
+      console.log(error);
+      Modal.error({
+        title: "인증번호 확인 실패",
+        content: "인증번호가 올바르지 않습니다.",
+        okText: "확인",
+      });
+    },
+  });
 
   const onAuth = async () => {
-    const auth_number = form.getFieldValue(["auth", "phoneAuth"]);
-    const phone_number = form.getFieldValue(["auth", "phoneNum"]);
-    // onAuthMutation.mutate({ phone_number, auth_number });
+    const authNumber = form.getFieldValue(["auth", "phoneAuth"]);
+    const phoneNumber = form.getFieldValue(["auth", "phoneNum"]);
+    onAuthMutation.mutate({ authNumber, phoneNumber });
   };
 
   const onSubmit = (values) => {
@@ -112,19 +110,20 @@ const UserInfo = ({ currentStep, form, step, setStep, emailConfirm }) => {
       });
     }
   };
-  const testAuth = () =>{
+
+  const testAuth = () => {
     setAuth(true);
-  }
-  const testSend = () =>{
+  };
+  const testSend = () => {
     setAuth(false);
-  }
+  };
+
   useEffect(() => {
     if (step === "info") {
       setAuth(true);
       setSend(true);
       const phoneNum = form.getFieldValue(["auth", "phoneNum"]) ?? "";
-      if (phoneNum)
-        form.setFieldsValue({ auth: { phoneNum: "", phoneAuth: "" } });
+      if (phoneNum) form.setFieldsValue({ auth: { phoneNum: "", phoneAuth: "" } });
     }
     // eslint-disable-next-line
   }, [step]);
@@ -132,36 +131,21 @@ const UserInfo = ({ currentStep, form, step, setStep, emailConfirm }) => {
   return (
     <Container style={{ display: currentStep ? "flex" : "none" }}>
       <Title>기본 정보</Title>
-      <Form
-        form={form}
-        layout="vertical"
-        style={{ minWidth: 450 }}
-        onFinish={onSubmit}
-      >
+      <Form form={form} layout="vertical" style={{ minWidth: 450 }} onFinish={onSubmit}>
         <Wrap style={{ flex: 1 }}>
           <Section style={{ flex: 1 }}>
-            <Form.Item
-              label="대표자 이름"
-              name="name"
-              rules={[{ required: true, message: "이름을 입력해 주세요!" }]}
-            >
+            <Form.Item label="대표자 이름" name="name" rules={[{ required: true, message: "이름을 입력해 주세요!" }]}>
               <Input placeholder="이름을 입력해 주세요." />
             </Form.Item>
 
             <Form.Item label="이메일" required>
-              <Input
-                placeholder="이메일을 입력해 주세요."
-                disabled={true}
-                value={emailConfirm}
-              />
+              <Input placeholder="이메일을 입력해 주세요." disabled={true} value={emailConfirm} />
             </Form.Item>
             <Form.Item
               label="휴대폰 번호"
               name="auth"
               dependencies={["phoneNum", "phoneAuth"]}
-              rules={[
-                { required: true, message: "휴대폰 인증을 완료해 주세요!" },
-              ]}
+              rules={[{ required: true, message: "휴대폰 인증을 완료해 주세요!" }]}
             >
               <RowWrapper
                 styles={css`
@@ -185,13 +169,7 @@ const UserInfo = ({ currentStep, form, step, setStep, emailConfirm }) => {
                       },
                     ]}
                   >
-                    <Input
-                      placeholder="휴대폰 번호"
-                      style={{ marginRight: 5 }}
-                      disabled={!auth || !send}
-                      maxLength={11}
-                      minLength={11}
-                    />
+                    <Input placeholder="휴대폰 번호" style={{ marginRight: 5 }} disabled={!auth || !send} maxLength={11} minLength={11} />
                   </Form.Item>
                   <Button
                     type="primary"
@@ -212,11 +190,7 @@ const UserInfo = ({ currentStep, form, step, setStep, emailConfirm }) => {
                   }}
                 >
                   <Form.Item name={["auth", "phoneAuth"]} noStyle>
-                    <Input
-                      placeholder="인증 번호"
-                      style={{ marginRight: 5 }}
-                      disabled={!auth || send}
-                    />
+                    <Input placeholder="인증 번호" style={{ marginRight: 5 }} disabled={!auth || send} />
                   </Form.Item>
                   <Button
                     type="primary"
