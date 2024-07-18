@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { color } from "../../styles/theme";
 
-import { emailReg, passwordReg } from "../../utils/Reg"
+import { emailReg, passwordReg } from "../../utils/Reg";
 
 // 다음 클릭 시 이메일 검사 추가
 const Container = styled.div`
@@ -32,15 +32,17 @@ const Account = ({ currentStep, form, setStep }) => {
 
   const checkEmail = async () => {
     const email = form.getFieldValue("email");
+
     if (!emailReg.test(email)) {
       return Promise.reject(new Error("올바른 이메일 양식이 아닙니다."));
     }
     try {
-          return Promise.resolve();
+      const formdata = {
+        email,
+      };
+      await axios.post("http://localhost:4000/api/user/email-check", formdata);
+      return Promise.resolve();
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error(error.response.data);
-      }
       return Promise.reject(new Error("해당 이메일을 사용할 수 없습니다."));
     }
   };
@@ -48,16 +50,10 @@ const Account = ({ currentStep, form, setStep }) => {
   const checkPw = async () => {
     const password = form.getFieldValue("password");
     if (password && password.length < 8) {
-      return Promise.reject(
-        new Error("비밀번호는 최소 8자 이상이어야 합니다.")
-      );
+      return Promise.reject(new Error("비밀번호는 최소 8자 이상이어야 합니다."));
     }
     if (!passwordReg.test(password)) {
-      return Promise.reject(
-        new Error(
-          "영어 대문자 또는 소문자, 숫자, 특수문자 최소 1자씩 조합해 주세요."
-        )
-      );
+      return Promise.reject(new Error("영어 대문자 또는 소문자, 숫자, 특수문자 최소 1자씩 조합해 주세요."));
     }
 
     return Promise.resolve();
@@ -75,12 +71,7 @@ const Account = ({ currentStep, form, setStep }) => {
   return (
     <Container style={{ display: currentStep ? "flex" : "none" }}>
       <Title>회원가입</Title>
-      <Form
-        form={form}
-        layout="vertical"
-        style={{ minWidth: 450 }}
-        onFinish={onSubmit}
-      >
+      <Form form={form} layout="vertical" style={{ minWidth: 450 }} onFinish={onSubmit}>
         <Form.Item
           label="이메일"
           name="email"
@@ -101,9 +92,7 @@ const Account = ({ currentStep, form, setStep }) => {
           extra={
             <>
               <Label>ㆍ최소 8글자</Label>
-              <Label>
-                ㆍ영어 대문자 또는 소문자, 숫자, 특수문자 최소 1자씩 조합
-              </Label>
+              <Label>ㆍ영어 대문자 또는 소문자, 숫자, 특수문자 최소 1자씩 조합</Label>
             </>
           }
           rules={[
