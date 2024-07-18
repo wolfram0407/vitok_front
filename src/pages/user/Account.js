@@ -6,6 +6,7 @@ import { color } from "../../styles/theme";
 
 import { emailReg, passwordReg } from "../../utils/Reg"
 
+// 다음 클릭 시 이메일 검사 추가
 const Container = styled.div`
   display: flex;
   flex-direction: column;
