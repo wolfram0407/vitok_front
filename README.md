@@ -1,70 +1,44 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## VICTOK 볼링장 락카 관리 시스템
 
-### `npm start`
+# VICTOK 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  👉 <a href="https://victok.co.kr/">빅톡 사이트 <span>https://victok.co.kr </span></a> 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+VICTOK은 볼링센터 운영할 때 필수로 필요한 락카 관리를 할 수 있는 서비스 입니다.
+볼링장은 대부분 운영자의 평균 연령이 높은 편이고, 평균 300~400개 이상의 락카를 보유하고 있습니다.
 
-### `npm test`
+보통 엑셀로 관리를 하고 날짜에 맞춰 관리자가 연락을 하는 방식으로 운영이 되고 있었습니다.
+락카관리를 시각화하여 편리하게 관리하고 자동으로 연락할 수 있는 서비스 입니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+추가 기능으로 등록된 회원들에에 공지 및 광고 메시지를 보낼 수 있는 기능을 가지고 있습니다.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 주요 기능
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 락카 관리
+- 락카 만료일 도래 시 알람톡 자동 전송 기능
+- 락카 등록/추가/삭제 (중복 선택 가능)
+- 락카 리스트 엑셀 다운로드 가능
 
-### `npm run eject`
+### 지공차트 관리
+- 고객별 지공차트 작성 및 영구 보관
+- 고객별 지공사 정보 작성
+- 지공 시 필요한 메모 입력 가능
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 고객 관리
+- 락카 유지 및 만료, 고객 입퇴실 및 관리
+- 고객별 도입, 만료 및 평가 기능
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 화면
+![image](https://github.com/user-attachments/assets/be507f52-b2d0-4e3d-8b56-9f97dc3aa0df)  ![image](https://github.com/user-attachments/assets/714cb04c-11f0-4ba4-befc-29f9504542d0)
 
-## Learn More
+![image](https://github.com/user-attachments/assets/aeb5314c-591a-470f-9ab1-6fbd393d04b4)  ![image](https://github.com/user-attachments/assets/27f9acf9-3405-48ca-9fbe-923e375f4e6a)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
