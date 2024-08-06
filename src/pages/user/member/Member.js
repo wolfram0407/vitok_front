@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-const Home = () => {
+const Member = () => {
   const storeUser = useSelector((state) => state.user);
 
   return (
@@ -19,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Member;
