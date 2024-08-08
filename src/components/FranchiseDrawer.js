@@ -164,7 +164,7 @@ const FranchiseDrawer = ({ grade }) => {
             ))}
           </DecoWrapper>
         </LoggedInInfoWrapper>
-        {tabList.slice(0, 3).map((item, index) => (
+        {tabList.slice(0, 2).map((item, index) => (
           <DrawerTab key={item.id} {...item} />
         ))}
       </TopWrapper>
